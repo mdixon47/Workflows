@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
-    minifyHTML = require('gulp-minify-HTML'),
+    minifyHTML = require('gulp-minify-html'),
     jsonminify = require('gulp-jsonminify'),
     concat = require('gulp-concat');
 
@@ -19,7 +19,7 @@ var env,
     outputDir,
     sassStyle;
 
-env = process.env.NODE_ENV || 'production';
+env = process.env.NODE_ENV || 'development';
 
 if (env==='development') {
   outputDir = 'builds/development/';
@@ -52,7 +52,7 @@ gulp.task('js', function() {
   gulp.src(jsSources)
     .pipe(concat('script.js'))
     .pipe(browserify())
-    .pipe(gulpif (env === 'production',uglify()))
+    .pipe(gulpif(env === 'production', uglify()))
     .pipe(gulp.dest(outputDir + 'js'))
     .pipe(connect.reload())
 });
@@ -87,15 +87,17 @@ gulp.task('connect', function() {
 
 gulp.task('html', function() {
   gulp.src('builds/development/*.html')
-  	.pipe (gulpif(env === 'production', minifyHTML()))
-  	.pipe (gulpif(env === 'production', gulp.dest(outputDir)))
+    .pipe(gulpif(env === 'production', minifyHTML()))
+    .pipe(gulpif(env === 'production', gulp.dest(outputDir)))
     .pipe(connect.reload())
 });
 
+
+
 gulp.task('json', function() {
   gulp.src('builds/development/js/*.json')
-  .pipe (gulpif(env === 'production', jsonminify()))
-  	.pipe (gulpif(env === 'production', gulp.dest('builds/production/js')))
+    .pipe(gulpif(env === 'production', jsonminify()))
+    .pipe(gulpif(env === 'production', gulp.dest('builds/production/js')))
     .pipe(connect.reload())
 });
 
