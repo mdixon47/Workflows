@@ -16,6 +16,7 @@
     "gulp": "^3.8.5",
     "gulp-browserify": "^0.5.0",
     "gulp-coffee": "^2.0.1",
+    "gulp-compass": "^1.1.9",
     "gulp-concat": "^2.2.0",
     "gulp-util": "^2.2.19",
     "jquery": "^2.1.1",
